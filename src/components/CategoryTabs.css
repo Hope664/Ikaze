@@ -1,14 +1,18 @@
+.category-tabs-wrapper {
+  padding: 20px 40px 0;
+}
+
 .category-tabs {
   display: flex;
   gap: 10px;
-  padding: 20px 40px 0;
   overflow-x: auto;
+  flex-wrap: wrap;
 }
 
 .tab {
   padding: 7px 18px;
   border-radius: 999px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   background: #fff;
   font-size: 13px;
   color: #555;
@@ -26,4 +30,27 @@
   background-color: #2D6A4F;
   color: #fff;
   border-color: #2D6A4F;
+}
+
+.category-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.cat-action-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.cat-action-btn:hover {
+  border-color: #2D6A4F;
+  color: #2D6A4F;
 }
