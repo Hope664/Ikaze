@@ -1,0 +1,52 @@
+.popular-categories {
+  padding: 16px 40px;
+}
+
+.popular-categories-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.popular-categories-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.popular-categories-header a {
+  font-size: 12px;
+  color: #2D6A4F;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.popular-categories-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+}
+
+.category-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: all 0.2s;
+}
+
+.category-pill:hover {
+  border-color: #2D6A4F;
+  color: #2D6A4F;
+  background-color: #f0faf4;
+}

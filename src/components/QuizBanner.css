@@ -1,0 +1,30 @@
+.quiz-banner {
+  background-color: #E8F5E9;
+  border-top: 1px solid #C8E6C9;
+  border-bottom: 1px solid #C8E6C9;
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quiz-banner p {
+  font-size: 14px;
+  color: #1B5E3B;
+  margin: 0;
+}
+
+.quiz-banner a {
+  background-color: #2D6A4F;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.quiz-banner a:hover {
+  background-color: #245a42;
+}
