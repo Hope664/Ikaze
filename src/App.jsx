@@ -4,6 +4,7 @@ import QuizBanner from './components/QuizBanner'
 import CategoryTabs from './components/CategoryTabs'
 import PopularCategories from './components/PopularCategories'
 import ServiceSection from './components/ServiceSection'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <ServiceSection title="Top rated driving companies" endpoint="/api/vendors?category=transport&limit=4" />
       <ServiceSection title="Top rated restaurants" endpoint="/api/vendors?category=restaurant&limit=4" />
       <ServiceSection title="Top rated travelling places" endpoint="/api/vendors?category=tourism&limit=4" />
+      <Footer />
     </div>
   )
 }
