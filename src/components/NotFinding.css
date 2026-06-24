@@ -1,47 +1,41 @@
 .not-finding {
-  background-color: #E8F5E9;
-  padding: 60px 40px;
-  text-align: center;
+  padding: 40px;
+  background: #f9fdf9;
 }
 
-.not-finding-content {
-  max-width: 480px;
+.not-finding-box {
+  max-width: 500px;
   margin: 0 auto;
+  border: 2px dashed #2D6A4F;
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  background: #fff;
 }
 
-.not-finding-icon {
-  width: 52px;
-  height: 52px;
-  background: #2D6A4F;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
-
-.not-finding-content h2 {
-  font-size: 22px;
+.not-finding-box h2 {
+  font-size: 20px;
   font-weight: 700;
   color: #111;
   margin: 0;
 }
 
-.not-finding-content p {
-  font-size: 14px;
-  color: #555;
+.not-finding-box p {
+  font-size: 13px;
+  color: #666;
   margin: 0;
+  max-width: 320px;
 }
 
-.not-finding-content a {
+.launch-btn {
   background: #2D6A4F;
   color: #fff;
   text-decoration: none;
-  padding: 12px 28px;
+  padding: 10px 24px;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
@@ -49,6 +43,6 @@
   transition: background 0.2s;
 }
 
-.not-finding-content a:hover {
+.launch-btn:hover {
   background: #245a42;
 }

@@ -1,23 +1,23 @@
 import './TrustBadges.css'
 
 const BADGES = [
-  { icon: '✅', label: 'Verified', desc: 'Every vendor is manually reviewed.' },
-  { icon: '⭐', label: 'Reviewed', desc: 'Real ratings from real users.' },
-  { icon: '👍', label: 'Helpful', desc: 'AI-powered, community-tested.' },
-  { icon: '🎁', label: '100% Free', desc: 'No fees to browse or discover.' },
-  { icon: '🔒', label: 'Privacy-safe', desc: 'Your data stays yours.' },
+  { label: 'Verified' },
+  { label: 'Reviewed' },
+  { label: 'Trusted' },
+  { label: 'Local-first' },
+  { label: 'Privacy-aware' },
 ]
 
 function TrustBadges() {
   return (
     <section className="trust-badges">
-      <p className="trust-label">Every vendor on Ikaze goes through a manual review process before going live.</p>
-      <div className="badges-grid">
-        {BADGES.map(({ icon, label, desc }) => (
+      <p className="trust-title">Every vendor on Ikaze goes through a human-reviewed verification process.</p>
+      <p className="trust-subtitle">Pending vendors are hidden from the public until approved. Suspicious listings can be reported and suspended immediately.</p>
+      <div className="badges-row">
+        {BADGES.map(({ label }) => (
           <div key={label} className="badge">
-            <div className="badge-icon">{icon}</div>
+            <span className="badge-check">✅</span>
             <span className="badge-label">{label}</span>
-            <span className="badge-desc">{desc}</span>
           </div>
         ))}
       </div>
