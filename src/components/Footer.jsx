@@ -1,10 +1,9 @@
 import './Footer.css'
 
 const LINKS = {
-  Product: ['Discover', 'AI Quiz', 'Map view', 'Categories'],
-  Company: ['About Ikaze', 'Blog', 'Careers', 'Contact'],
-  Vendors: ['Register your business', 'Verification process', 'Vendor dashboard'],
-  Legal: ['Privacy policy', 'Terms of use', 'Cookie policy'],
+  Services: ['Accommodation', 'Food & Dining', 'Guides', 'Transportation'],
+  Company: ['About Us', 'Partner With Us', 'Careers', 'Contact'],
+  Support: ['Help Center', 'Trust & Safety', 'Terms of Service', 'Privacy Policy'],
 }
 
 function Footer() {
@@ -12,8 +11,8 @@ function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <span className="footer-logo">ikaze</span>
-          <p>Rwanda's trusted platform for discovering verified local services.</p>
+          <span className="footer-logo">Ikaze</span>
+          <p>Discover verified Services, Powered by AI. Connect with trusted providers for accommodation, dining, tourism, and transportation. Smart recommendations based on your needs.</p>
         </div>
         {Object.entries(LINKS).map(([section, items]) => (
           <div key={section} className="footer-col">
@@ -27,8 +26,7 @@ function Footer() {
         ))}
       </div>
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Ikaze AI. All rights reserved.</p>
-        <p>Made with care in Rwanda 🇷🇼</p>
+        <p>© 2026 Ikaze. All rights reserved.</p>
       </div>
     </footer>
   )
