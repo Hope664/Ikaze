@@ -209,10 +209,11 @@ function CreatePassword() {
     </div>
   )
 }
-
 export default function Auth() {
   const navigate = useNavigate()
-  const [step, setStep] = useState('account')
+  const params = new URLSearchParams(window.location.search)
+  const initial = params.get('step') || 'account'
+  const [step, setStep] = useState(initial)
 
   const handleBack = () => {
     if (step === 'account') navigate('/')
@@ -224,7 +225,7 @@ export default function Auth() {
 
   return (
     <AuthLayout onBack={handleBack}>
-      {step === 'account' && <AccountType onSelect={() => setStep('login')} />}
+      {step === 'account' && <AccountType onSelect={(type) => setStep(type === 'vendor' ? 'signup' : 'login')} />}
       {step === 'login' && <Login onForgot={() => setStep('forgot')} onSignup={() => setStep('signup')} />}
       {step === 'signup' && <SignUp onLogin={() => setStep('login')} />}
       {step === 'forgot' && <ForgotPassword onNext={() => setStep('otp')} />}
