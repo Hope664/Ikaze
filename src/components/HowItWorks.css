@@ -23,43 +23,46 @@
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 20px;
   max-width: 900px;
   margin: 0 auto 32px;
 }
 
-.step {
+.step-box {
+  background: #f9fdf9;
+  border: 1px solid #d4edda;
+  border-radius: 16px;
+  padding: 28px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .step-num {
-  width: 40px;
-  height: 40px;
-  background: #2D6A4F;
-  color: #fff;
+  width: 44px;
+  height: 44px;
+  background: rgba(45, 106, 79, 0.15);
+  color: #2D6A4F;
   border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
 }
 
-.step h3 {
+.step-box h3 {
   font-size: 14px;
   font-weight: 600;
   color: #111;
   margin: 0;
 }
 
-.step p {
+.step-box p {
   font-size: 13px;
   color: #777;
   margin: 0;
-  max-width: 240px;
 }
 
 .shield-icon {

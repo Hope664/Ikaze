@@ -13,7 +13,7 @@ function HowItWorks() {
       <h2>Safe, simple, and transparent discovery in three steps.</h2>
       <div className="steps-grid">
         {STEPS.map((step, i) => (
-          <div key={i} className="step">
+          <div key={i} className="step-box">
             <div className="step-num">{step.num}</div>
             <h3>{step.title}</h3>
             <p>{step.desc}</p>
