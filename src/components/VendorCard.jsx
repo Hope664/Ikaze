@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import './VendorCard.css'
 
 function VendorCard({ vendor }) {
+  const navigate = useNavigate()
+
   return (
     <div className="vendor-card">
       <div className="vendor-card-image">
@@ -15,7 +18,7 @@ function VendorCard({ vendor }) {
         <p className="vendor-desc">{vendor.description}</p>
         <div className="vendor-actions">
           <a href={`tel:${vendor.phone}`} className="btn-contact">Contact</a>
-          <a href={`/vendor/${vendor.id}`} className="btn-view">View details</a>
+          <button onClick={() => navigate(`/vendor/${vendor.id}`)} className="btn-view">View details</button>
         </div>
       </div>
     </div>
