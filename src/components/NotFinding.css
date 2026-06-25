@@ -6,7 +6,7 @@
 .not-finding-box {
   max-width: 500px;
   margin: 0 auto;
-  border: 2px dashed #2D6A4F;
+  border: 2px dashed #a2cbb8;
   border-radius: 16px;
   padding: 40px 32px;
   text-align: center;
@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  background: #fff;
+  background: #a2cbb8;
 }
 
 .not-finding-box h2 {
