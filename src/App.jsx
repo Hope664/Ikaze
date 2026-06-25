@@ -5,11 +5,16 @@ import CategoryTabs from './components/CategoryTabs'
 import PopularCategories from './components/PopularCategories'
 import ServiceSection from './components/ServiceSection'
 import NotFinding from './components/NotFinding'
-import Footer from './components/Footer'
 import HowItWorks from './components/HowItWorks'
 import TrustBadges from './components/TrustBadges'
+import Footer from './components/Footer'
+import VendorDetail from './pages/VendorDetail'
 
 function App() {
+  const isVendorPage = window.location.pathname.startsWith('/vendor/')
+
+  if (isVendorPage) return <VendorDetail />
+
   return (
     <div>
       <Navbar />
