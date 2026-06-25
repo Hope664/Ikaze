@@ -12,8 +12,6 @@ function Navbar() {
       <div className="navbar-auth">
         <a href="/sign-in" className="btn-signin">Sign in</a>
         <a href="/sign-up" className="btn-signup">Sign up</a>
-        <a href="/auth" className="btn-signin">Sign in</a>
-        <a href="/auth" className="btn-signup">Sign up</a>
       </div>
     </nav>
   )
