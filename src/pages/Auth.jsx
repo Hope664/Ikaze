@@ -7,11 +7,15 @@ const GORILLA_IMG = 'https://images.unsplash.com/photo-1564760055775-d63b17a55c4
 function AuthLayout({ children, onBack }) {
   return (
     <div className="auth-page">
-      <div className="auth-image">
-        <img src={GORILLA_IMG} alt="ikaze" />
-        <button className="auth-back" onClick={onBack}>‹</button>
+      <div className="auth-card">
+        <div className="auth-image">
+          <img src={GORILLA_IMG} alt="ikaze" />
+          <button className="auth-back" onClick={onBack}>‹</button>
+        </div>
+        <div className="auth-body">
+          {children}
+        </div>
       </div>
-      <div className="auth-card">{children}</div>
     </div>
   )
 }
