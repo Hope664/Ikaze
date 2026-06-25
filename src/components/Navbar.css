@@ -32,6 +32,10 @@
   color: #555;
   transition: color 0.2s;
 }
+.navbar-links span,
+.btn-signin {
+  cursor: pointer;
+}
 
 .navbar-links a:hover {
   color: #2D6A4F;
