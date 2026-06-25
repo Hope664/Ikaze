@@ -7,6 +7,7 @@ import ServiceSection from './components/ServiceSection'
 import NotFinding from './components/NotFinding'
 import Footer from './components/Footer'
 import HowItWorks from './components/HowItWorks'
+import TrustBadges from './components/TrustBadges'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <ServiceSection title="Top rated travelling places" endpoint="/api/vendors?category=tourism&limit=4" />
       <NotFinding />
       <HowItWorks />
+      <TrustBadges />
       <Footer />
     </div>
   )

@@ -11,8 +11,14 @@ const BADGES = [
 function TrustBadges() {
   return (
     <section className="trust-badges">
-      <p className="trust-title">Every vendor on Ikaze goes through a human-reviewed verification process.</p>
-      <p className="trust-subtitle">Pending vendors are hidden from the public until approved. Suspicious listings can be reported and suspended immediately.</p>
+      <div className="trust-shield">
+        <div className="shield-icon">🛡️<span className="shield-plus">+</span></div>
+      </div>
+      <p className="trust-title">
+        Every vendor on Ikaze goes through a human-reviewed verification process.<br />
+        Pending vendors are hidden from the public until approved. Suspicious listings<br />
+        can be reported and suspended immediately.
+      </p>
       <div className="badges-row">
         {BADGES.map(({ label }) => (
           <div key={label} className="badge">
