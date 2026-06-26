@@ -3,7 +3,7 @@ import Home from './pages/Home'
 import VendorDetail from './pages/VendorDetail'
 import Discover from './pages/Discover'
 import Auth from './pages/Auth'
-import Quiz from '/pages/Quiz'
+import Quiz from './pages/Quiz'
 
 function App() {
   return (
