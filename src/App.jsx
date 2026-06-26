@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import VendorDetail from './pages/VendorDetail'
 import Discover from './pages/Discover'
 import Auth from './pages/Auth'
+import Quiz from '/pages/Quiz'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/vendor/:id" element={<VendorDetail />} />
       <Route path="/discover" element={<Discover />} />
       <Route path="/auth" element={<Auth />} />
+      <Route path="/quiz" element={<Quiz />} />
     </Routes>
   )
 }
