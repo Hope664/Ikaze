@@ -188,7 +188,7 @@ function MatchingPage() {
   )
 }
 
-export default function Quiz() {
+function Quiz() {
   const navigate = useNavigate()
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState({})
@@ -257,8 +257,8 @@ export default function Quiz() {
             <button className="quiz-btn-back" onClick={handleBack}>← Back</button>
             <button className="quiz-btn-create" onClick={() => navigate('/auth?step=signup')}>Create Account</button>
             <button className="quiz-btn-next" onClick={handleNext}>
-              {current === total - 1 ? 'See Results' : 'Skip'} →
-            </button>
+  {selected ? 'Next →' : 'Skip →'}
+</button>
           </div>
         </div>
       </div>
@@ -302,3 +302,5 @@ export default function Quiz() {
     </div>
   )
 }
+
+export default Quiz
