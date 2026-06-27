@@ -131,38 +131,145 @@ function Login({ onForgot, onSignup }) {
     </div>
   )
 }
-
-
 function SignUp({ onLogin }) {
+  const [showPass, setShowPass] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [form, setForm] = useState({
+    fullName: '',
+    phone: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+  const [errors, setErrors] = useState({})
+  const navigate = useNavigate()
+
+  const update = (field, value) => {
+    setForm({ ...form, [field]: value })
+    setErrors({ ...errors, [field]: '' })
+  }
+
+  const validate = () => {
+    const e = {}
+    if (!form.fullName.trim() || form.fullName.trim().length < 3)
+      e.fullName = 'Full name must be at least 3 characters'
+
+    if (!form.phone)
+      e.phone = 'Phone number is required'
+    else if (!isValidPhone(form.phone))
+      e.phone = 'Enter a valid Rwandan phone number (e.g. 0781234567)'
+
+    if (form.email && !isValidEmail(form.email))
+      e.email = 'Enter a valid email address'
+
+    if (!form.password)
+      e.password = 'Password is required'
+    else if (form.password.length < 8)
+      e.password = 'Password must be at least 8 characters'
+    else if (!/\d/.test(form.password))
+      e.password = 'Password must contain at least 1 number'
+    else if (!/[^a-zA-Z0-9]/.test(form.password))
+      e.password = 'Password must contain at least 1 special character'
+
+    if (!form.confirmPassword)
+      e.confirmPassword = 'Please confirm your password'
+    else if (form.password !== form.confirmPassword)
+      e.confirmPassword = 'Passwords do not match'
+
+    return e
+  }
+
+  const handleSignUp = () => {
+    const newErrors = validate()
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+    localStorage.setItem('ikaze_user', JSON.stringify({
+      name: form.fullName,
+      phone: form.phone,
+      email: form.email,
+      role: 'user'
+    }))
+    navigate('/user/dashboard')
+  }
+
   return (
     <div className="auth-form">
       <div className="form-group">
         <label>Full Name*</label>
-        <input type="text" placeholder="Full name" />
+        <input
+          type="text"
+          placeholder="Full name"
+          value={form.fullName}
+          onChange={e => update('fullName', e.target.value)}
+          className={errors.fullName ? 'input-error' : ''}
+        />
+        {errors.fullName && <span className="error-msg">{errors.fullName}</span>}
       </div>
       <div className="form-group">
         <label>Phone number*</label>
-        <input type="tel" placeholder="07xxxxxxxx" />
+        <input
+          type="tel"
+          placeholder="07xxxxxxxx"
+          value={form.phone}
+          onChange={e => update('phone', e.target.value)}
+          className={errors.phone ? 'input-error' : ''}
+        />
+        {errors.phone && <span className="error-msg">{errors.phone}</span>}
       </div>
       <div className="form-group">
         <label>Email (optional)</label>
-        <input type="email" placeholder="Email" />
+        <input
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={e => update('email', e.target.value)}
+          className={errors.email ? 'input-error' : ''}
+        />
+        {errors.email && <span className="error-msg">{errors.email}</span>}
       </div>
       <div className="form-group">
         <label>Create password*</label>
-        <input type="password" placeholder="Password" />
+        <div className="input-with-icon">
+          <input
+            type={showPass ? 'text' : 'password'}
+            placeholder="Password"
+            value={form.password}
+            onChange={e => update('password', e.target.value)}
+            className={errors.password ? 'input-error' : ''}
+          />
+          <button className="eye-btn" onClick={() => setShowPass(!showPass)}>
+            {showPass ? '🙈' : '👁'}
+          </button>
+        </div>
+        {errors.password && <span className="error-msg">{errors.password}</span>}
       </div>
       <div className="form-group">
         <label>Confirm password*</label>
-        <input type="password" placeholder="confirm password" />
+        <div className="input-with-icon">
+          <input
+            type={showConfirm ? 'text' : 'password'}
+            placeholder="Confirm password"
+            value={form.confirmPassword}
+            onChange={e => update('confirmPassword', e.target.value)}
+            className={errors.confirmPassword ? 'input-error' : ''}
+          />
+          <button className="eye-btn" onClick={() => setShowConfirm(!showConfirm)}>
+            {showConfirm ? '🙈' : '👁'}
+          </button>
+        </div>
+        {errors.confirmPassword && <span className="error-msg">{errors.confirmPassword}</span>}
       </div>
-      <button className="btn-primary">Sign Up</button>
+      <button className="btn-primary" onClick={handleSignUp}>Sign Up</button>
       <p className="auth-switch">
         Already have an account? <button onClick={onLogin}>Login</button>
       </p>
     </div>
   )
 }
+
+
 
 function ForgotPassword({ onNext }) {
   return (
