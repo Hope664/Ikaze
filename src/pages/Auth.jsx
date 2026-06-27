@@ -2,6 +2,16 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Auth.css'
 
+// Add this validation helper at the top of the file after imports
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function isValidPhone(phone) {
+  // Accepts Rwanda formats: 07XXXXXXXX, +2507XXXXXXXX, 2507XXXXXXXX
+  return /^(\+?250|0)7[2389]\d{7}$/.test(phone.replace(/\s/g, ''))
+}
+
 const GORILLA_IMG = 'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=80'
 
 function AuthLayout({ children, onBack }) {
