@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 // Public pages - visible to everyone
 import Home from './pages/Home'
 import Auth from './pages/Auth'
-import Quiz from './pages/Quiz'
+import Quiz from './pages/user/Quiz'
 import Discover from './pages/user/Discover'
 import VendorDetail from './pages/user/VendorDetail'
 
