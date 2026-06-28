@@ -1,5 +1,5 @@
 import './VendorDetail.css'
-import Navbar from '../components/Navbar'
+import Navbar from '../../components/Navbar'
 
 const VENDOR = {
   name: 'Kigali View Hotel',
@@ -166,7 +166,7 @@ function VendorDetail() {
                   <p className="field-value">2 Adults, 0 Children</p>
                 </div>
               </div>
-              <button className="btn-book">Book Now →</button>
+             <button className="btn-book" onClick={handleBookNow}>Book Now →</button>
               <button className="btn-contact-vendor">Contact Vendor ✉️</button>
               <p className="no-payment">No payment required yet</p>
             </div>
