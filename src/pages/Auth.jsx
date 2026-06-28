@@ -45,92 +45,22 @@ function AccountType({ onSelect }) {
     </div>
   )
 }
-function Login({ onForgot, onSignup }) {
-  const [showPass, setShowPass] = useState(false)
-  const [identifier, setIdentifier] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({})
-  const navigate = useNavigate()
-
-  const validate = () => {
-    const newErrors = {}
-    if (!identifier) {
-      newErrors.identifier = 'Email or phone is required'
-    } else if (!isValidEmail(identifier) && !isValidPhone(identifier)) {
-      newErrors.identifier = 'Enter a valid email or Rwandan phone number (e.g. 0781234567)'
-    }
-    if (!password) {
-      newErrors.password = 'Password is required'
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters'
-    }
-    return newErrors
+const handleLogin = () => {
+  const newErrors = validate()
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors)
+    return
   }
-
-  const handleLogin = () => {
-    const newErrors = validate()
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      return
-    }
-    localStorage.setItem('ikaze_user', JSON.stringify({
-      name: 'Umurerwa Jane',
-      email: identifier,
-      role: 'user'
-    }))
-    navigate('/user/dashboard')
-  }
-
-  return (
-    <div className="auth-form">
-      <h2>Welcome back</h2>
-      <p className="auth-sub">Sign in your account</p>
-      <div className="form-group">
-        <label>Email or Phone number*</label>
-        <input
-          type="text"
-          placeholder="email@example.com or 0781234567"
-          value={identifier}
-          onChange={e => {
-            setIdentifier(e.target.value)
-            setErrors({ ...errors, identifier: '' })
-          }}
-          className={errors.identifier ? 'input-error' : ''}
-        />
-        {errors.identifier && <span className="error-msg">{errors.identifier}</span>}
-      </div>
-      <div className="form-group">
-        <label>Password*</label>
-        <div className="input-with-icon">
-          <input
-            type={showPass ? 'text' : 'password'}
-            placeholder="Password"
-            value={password}
-            onChange={e => {
-              setPassword(e.target.value)
-              setErrors({ ...errors, password: '' })
-            }}
-            className={errors.password ? 'input-error' : ''}
-          />
-          <button className="eye-btn" onClick={() => setShowPass(!showPass)}>
-            {showPass ? '🙈' : '👁'}
-          </button>
-        </div>
-        {errors.password && <span className="error-msg">{errors.password}</span>}
-      </div>
-      <div className="form-row">
-        <label className="remember-me">
-          <input type="checkbox" /> Remember me
-        </label>
-        <button className="forgot-link" onClick={onForgot}>Forgot password?</button>
-      </div>
-      <button className="btn-primary" onClick={handleLogin}>Login</button>
-      <p className="auth-switch">
-        Don't have an account? <button onClick={onSignup}>Sign up</button>
-      </p>
-    </div>
-  )
+  localStorage.setItem('ikaze_user', JSON.stringify({
+    name: 'Umurerwa Jane',
+    email: identifier,
+    role: 'user'
+  }))
+  // Redirect back to where they were trying to go
+  const from = location.state?.from?.pathname || '/user/dashboard'
+  navigate(from, { replace: true })
 }
+
 function SignUp({ onLogin }) {
   const [showPass, setShowPass] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)

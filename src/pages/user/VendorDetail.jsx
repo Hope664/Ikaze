@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from 'react-router-dom'
 import './VendorDetail.css'
 import Navbar from '../../components/Navbar'
 
@@ -59,6 +60,18 @@ function StarRating({ count }) {
 }
 
 function VendorDetail() {
+  const navigate = useNavigate()
+  const { id } = useParams()
+
+  const handleBookNow = () => {
+    const user = localStorage.getItem('ikaze_user')
+    if (!user) {
+      navigate('/auth?step=login', { state: { from: { pathname: `/user/booking/${id}` } } })
+    } else {
+      navigate(`/user/booking/${id}`)
+    }
+  }
+
   return (
     <div className="vendor-detail-page">
       <Navbar />
@@ -68,9 +81,9 @@ function VendorDetail() {
         <div className="vendor-detail-topbar">
           <div className="vendor-detail-left">
             <div className="breadcrumb">
-              <a href="/discover">Explore</a> ›
-              <a href="/discover?category=accommodation"> Accommodation</a> ›
-              <span> {VENDOR.name}</span>
+              <span onClick={() => navigate('/discover')} style={{ cursor: 'pointer' }}>Explore</span> ›
+              <span onClick={() => navigate('/discover?category=accommodation')} style={{ cursor: 'pointer' }}> Accommodation</span> ›
+              <span className="breadcrumb-active"> {VENDOR.name}</span>
             </div>
             <div className="vendor-meta">
               {VENDOR.isVerified && (
@@ -166,7 +179,7 @@ function VendorDetail() {
                   <p className="field-value">2 Adults, 0 Children</p>
                 </div>
               </div>
-             <button className="btn-book" onClick={handleBookNow}>Book Now →</button>
+              <button className="btn-book" onClick={handleBookNow}>Book Now →</button>
               <button className="btn-contact-vendor">Contact Vendor ✉️</button>
               <p className="no-payment">No payment required yet</p>
             </div>
