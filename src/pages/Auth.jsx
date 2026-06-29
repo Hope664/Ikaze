@@ -45,13 +45,13 @@ function AccountType({ onSelect }) {
     </div>
   )
 }
-const location = useLocation()
 function Login({ onForgot, onSignup }) {
   const [showPass, setShowPass] = useState(false)
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
   const navigate = useNavigate()
+  const location = useLocation()
 
   const validate = () => {
     const newErrors = {}
