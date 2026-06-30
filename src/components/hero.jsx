@@ -11,10 +11,10 @@ function Hero() {
         <h1>Discover. Connect. Experience.</h1>
         <p>Smart AI recommendations for trusted places and local services tailored just for you.</p>
         <div className="hero-buttons">
-          <button className="btn-getstarted" onClick={() => navigate('/auth?step=signup')}>Get started ✦</button>
-          <button className="btn-register" onClick={() => navigate('/auth?step=signup')}>
-            <span className="btn-register-dot" /> Register business
-          </button>
+         <button className="btn-getstarted" onClick={() => navigate('/auth?step=signup&role=user')}>Get started ✦</button>
+<button className="btn-register" onClick={() => navigate('/auth?step=signup&role=vendor')}>
+  <span className="btn-register-dot" /> Register business
+</button> 
         </div>
       </div>
       <div className="hero-search-bar">
