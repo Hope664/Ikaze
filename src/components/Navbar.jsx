@@ -23,7 +23,7 @@ function Navbar() {
           <>
             <li><span onClick={() => navigate('/discover')}>Explore</span></li>
             <li><span onClick={() => navigate('/categories')}>Categories</span></li>
-            <li><span onClick={() => navigate('/quiz')}>AI Assistant</span></li>
+            <li><span onClick={() => navigate('/ai-assistant')}>AI Assistant</span></li>
             <li><span onClick={() => navigate('/how-it-works')}>How it works</span></li>
           </>
         ) : (
