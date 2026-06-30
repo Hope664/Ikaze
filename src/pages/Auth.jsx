@@ -67,22 +67,22 @@ function Login({ onForgot, onSignup }) {
     }
     return newErrors
   }
-
-  const handleLogin = () => {
+const handleLogin = () => {
   const newErrors = validate()
   if (Object.keys(newErrors).length > 0) {
     setErrors(newErrors)
     return
   }
+  const userRole = role || 'user'
   localStorage.setItem('ikaze_user', JSON.stringify({
     name: 'Umurerwa Jane',
     email: identifier,
-    role: 'user'
+    role: userRole
   }))
-  // Redirect back to where they were trying to go
-  const from = location.state?.from?.pathname || '/user/dashboard'
+  const from = location.state?.from?.pathname || (userRole === 'vendor' ? '/vendor/dashboard' : '/user/dashboard')
   navigate(from, { replace: true })
 }
+  
   return (
     <div className="auth-form">
       <h2>Welcome back</h2>
@@ -133,7 +133,7 @@ function Login({ onForgot, onSignup }) {
     </div>
   )
 }
-function SignUp({ onLogin }) {
+function SignUp({ onLogin, role = 'user' }) {
   const [showPass, setShowPass] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [form, setForm] = useState({
@@ -191,15 +191,17 @@ function SignUp({ onLogin }) {
       name: form.fullName,
       phone: form.phone,
       email: form.email,
-      role: 'user'
+      role: role
     }))
-    navigate('/user/dashboard')
+    // Redirect based on role
+    navigate(role === 'vendor' ? '/vendor/dashboard' : '/user/dashboard')
   }
 
   return (
     <div className="auth-form">
+      <h2>{role === 'vendor' ? 'Register your business' : 'Create your account'}</h2>
       <div className="form-group">
-        <label>Full Name*</label>
+        <label>{role === 'vendor' ? 'Business / Owner Name*' : 'Full Name*'}</label>
         <input
           type="text"
           placeholder="Full name"
@@ -263,7 +265,9 @@ function SignUp({ onLogin }) {
         </div>
         {errors.confirmPassword && <span className="error-msg">{errors.confirmPassword}</span>}
       </div>
-      <button className="btn-primary" onClick={handleSignUp}>Sign Up</button>
+      <button className="btn-primary" onClick={handleSignUp}>
+        {role === 'vendor' ? 'Register Business' : 'Sign Up'}
+      </button>
       <p className="auth-switch">
         Already have an account? <button onClick={onLogin}>Login</button>
       </p>
@@ -382,9 +386,12 @@ function CreatePassword() {
 }
 export default function Auth() {
   const navigate = useNavigate()
+  const location = useLocation()
   const params = new URLSearchParams(window.location.search)
-  const initial = params.get('step') || 'account'
-  const [step, setStep] = useState(initial)
+  const urlRole = params.get('role') // 'user' or 'vendor'
+  const initialStep = params.get('step') || (urlRole ? 'signup' : 'account')
+  const [step, setStep] = useState(initialStep)
+  const [role, setRole] = useState(urlRole || 'user')
 
   const handleBack = () => {
     if (step === 'account') navigate('/')
@@ -396,9 +403,14 @@ export default function Auth() {
 
   return (
     <AuthLayout onBack={handleBack}>
-      {step === 'account' && <AccountType onSelect={(type) => setStep(type === 'vendor' ? 'signup' : 'login')} />}
-      {step === 'login' && <Login onForgot={() => setStep('forgot')} onSignup={() => setStep('signup')} />}
-      {step === 'signup' && <SignUp onLogin={() => setStep('login')} />}
+      {step === 'account' && (
+        <AccountType onSelect={(type) => {
+          setRole(type)
+          setStep(type === 'vendor' ? 'signup' : 'login')
+        }} />
+      )}
+      {step === 'login' && <Login onForgot={() => setStep('forgot')} onSignup={() => setStep('signup')} role={role} />}
+      {step === 'signup' && <SignUp onLogin={() => setStep('login')} role={role} />}
       {step === 'forgot' && <ForgotPassword onNext={() => setStep('otp')} />}
       {step === 'otp' && <OTPVerify onNext={() => setStep('newpass')} />}
       {step === 'newpass' && <CreatePassword />}
