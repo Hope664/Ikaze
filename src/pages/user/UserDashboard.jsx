@@ -23,7 +23,7 @@ export default function Dashboard() {
         <p>Ready for your next Rwandan adventure? We've updated your dashboard with new verified services based on your travel profile.</p>
         <div className="dash-hero-btns">
           <button className="dash-btn-primary" onClick={() => navigate('/quiz')}>Start AI Recommendation chat →</button>
-          <button className="dash-btn-secondary" onClick={() => navigate('/bookings')}>View My Bookings</button>
+          <button className="dash-btn-secondary" onClick={() => navigate('/user/bookings')}>View My Bookings</button>
         </div>
       </div>
 
