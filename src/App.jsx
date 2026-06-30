@@ -11,6 +11,8 @@ import UserDashboard from './pages/user/UserDashboard'
 import MyBookings from './pages/user/MyBookings'
 import Booking from './pages/user/Booking'
 import BookingConfirmed from './pages/user/BookingConfirmed'
+import Profile from './pages/user/Profile'
+import EditProfile from './pages/user/EditProfile'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -38,6 +40,12 @@ function App() {
       } />
       <Route path="/user/booking-confirmed" element={
         <ProtectedRoute><BookingConfirmed /></ProtectedRoute>
+      } />
+      <Route path="/user/profile" element={
+        <ProtectedRoute><Profile /></ProtectedRoute>
+      } />
+      <Route path="/user/profile/edit" element={
+        <ProtectedRoute><EditProfile /></ProtectedRoute>
       } />
 
       {/* ===== VENDOR - coming soon ===== */}
