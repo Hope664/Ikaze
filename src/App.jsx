@@ -10,6 +10,7 @@ import UserDashboard from './pages/user/UserDashboard'
 import Booking from './pages/user/Booking'
 import BookingConfirmed from './pages/user/BookingConfirmed'
 import ProtectedRoute from './components/ProtectedRoute'
+import MyBookings from './pages/user/MyBookings'
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
       } />
       <Route path="/user/booking-confirmed" element={
         <ProtectedRoute><BookingConfirmed /></ProtectedRoute>
+      } />
+
+        <Route path="/user/bookings" element={
+        <ProtectedRoute><MyBookings /></ProtectedRoute>
       } />
 
       {/* ===== VENDOR - coming soon ===== */}
