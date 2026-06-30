@@ -10,19 +10,23 @@ const RECENT = [
   { id: '4', name: 'Kigali Elite Rides', location: 'City-wide', imageUrl: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&q=80' },
 ]
 
-export default function Dashboard() {
+export default function UserDashboard() {
   const navigate = useNavigate()
+
+  // Read real logged-in user instead of hardcoding
+  const user = JSON.parse(localStorage.getItem('ikaze_user') || '{}')
+  const firstName = user?.name?.split(' ')[0] || 'there'
 
   return (
     <div className="dashboard-page">
-      <Navbar loggedIn={true} userName="Umurerwa Jane" />
+      <Navbar />
 
       {/* Welcome hero */}
       <div className="dash-hero">
-        <h1>Welcome back, Jane.</h1>
+        <h1>Welcome back, {firstName}.</h1>
         <p>Ready for your next Rwandan adventure? We've updated your dashboard with new verified services based on your travel profile.</p>
         <div className="dash-hero-btns">
-          <button className="dash-btn-primary" onClick={() => navigate('/quiz')}>Start AI Recommendation chat →</button>
+          <button className="dash-btn-primary" onClick={() => navigate('/ai-assistant')}>Start AI Recommendation chat →</button>
           <button className="dash-btn-secondary" onClick={() => navigate('/user/bookings')}>View My Bookings</button>
         </div>
       </div>
@@ -35,7 +39,7 @@ export default function Dashboard() {
               <h2>Your Recent Discoveries</h2>
               <p>Based on the places you visited last week in Kigali.</p>
             </div>
-            <a href="/discover" className="dash-view-all">View all ↗</a>
+            <span className="dash-view-all" onClick={() => navigate('/discover')} style={{ cursor: 'pointer' }}>View all ↗</span>
           </div>
           <div className="recent-grid">
             {RECENT.map(item => (
@@ -48,7 +52,7 @@ export default function Dashboard() {
                 <div className="recent-card-body">
                   <h4>{item.name}</h4>
                   <p>📍 {item.location}</p>
-                  <button className="details-btn" onClick={() => navigate(`/vendor/${item.id}`)}>Details</button>
+                  <button className="details-btn" onClick={e => { e.stopPropagation(); navigate(`/vendor/${item.id}`) }}>Details</button>
                 </div>
               </div>
             ))}
@@ -74,7 +78,7 @@ export default function Dashboard() {
                     <p className="from-label">From RWF</p>
                     <p className="from-price">450k/night</p>
                   </div>
-                  <button className="book-now-btn" onClick={() => navigate('/booking/1')}>Book Now →</button>
+                  <button className="book-now-btn" onClick={() => navigate('/user/booking/1')}>Book Now →</button>
                 </div>
               </div>
             </div>
@@ -95,8 +99,8 @@ export default function Dashboard() {
             {/* AI Tip */}
             <div className="rec-ai-tip">
               <p className="ai-tip-label">AI Assistant Tip</p>
-              <p>"Jane, based on your love for nature, there's a new Gishwati-Mukura tour opening next week with certified local guides."</p>
-              <a href="#" className="remind-me">Remind Me ☆</a>
+              <p>"{firstName}, based on your love for nature, there's a new Gishwati-Mukura tour opening next week with certified local guides."</p>
+              <span className="remind-me" onClick={() => navigate('/ai-assistant')} style={{ cursor: 'pointer' }}>Remind Me ☆</span>
             </div>
 
             {/* Inzora */}
