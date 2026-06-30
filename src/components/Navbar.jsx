@@ -38,7 +38,7 @@ function Navbar() {
       <div className="navbar-auth">
         {isLoggedIn ? (
           <div className="user-menu">
-            <div className="user-pill" onClick={() => navigate('/user/dashboard')}>
+            <div className="user-pill" onClick={() => navigate('/user/profile')}>
               <div className="user-avatar">👤</div>
               <span>{displayName}</span>
             </div>
