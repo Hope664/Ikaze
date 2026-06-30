@@ -2,13 +2,11 @@ import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import './Auth.css'
 
-// Add this validation helper at the top of the file after imports
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 function isValidPhone(phone) {
-  // Accepts Rwanda formats: 07XXXXXXXX, +2507XXXXXXXX, 2507XXXXXXXX
   return /^(\+?250|0)7[2389]\d{7}$/.test(phone.replace(/\s/g, ''))
 }
 
@@ -45,7 +43,9 @@ function AccountType({ onSelect }) {
     </div>
   )
 }
-function Login({ onForgot, onSignup }) {
+
+// ✅ role is now properly passed as a prop
+function Login({ onForgot, onSignup, role = 'user' }) {
   const [showPass, setShowPass] = useState(false)
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
@@ -67,22 +67,22 @@ function Login({ onForgot, onSignup }) {
     }
     return newErrors
   }
-const handleLogin = () => {
-  const newErrors = validate()
-  if (Object.keys(newErrors).length > 0) {
-    setErrors(newErrors)
-    return
+
+  const handleLogin = () => {
+    const newErrors = validate()
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+    localStorage.setItem('ikaze_user', JSON.stringify({
+      name: 'Umurerwa Jane',
+      email: identifier,
+      role: role
+    }))
+    const from = location.state?.from?.pathname || (role === 'vendor' ? '/vendor/dashboard' : '/user/dashboard')
+    navigate(from, { replace: true })
   }
-  const userRole = role || 'user'
-  localStorage.setItem('ikaze_user', JSON.stringify({
-    name: 'Umurerwa Jane',
-    email: identifier,
-    role: userRole
-  }))
-  const from = location.state?.from?.pathname || (userRole === 'vendor' ? '/vendor/dashboard' : '/user/dashboard')
-  navigate(from, { replace: true })
-}
-  
+
   return (
     <div className="auth-form">
       <h2>Welcome back</h2>
@@ -133,6 +133,7 @@ const handleLogin = () => {
     </div>
   )
 }
+
 function SignUp({ onLogin, role = 'user' }) {
   const [showPass, setShowPass] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -155,15 +156,12 @@ function SignUp({ onLogin, role = 'user' }) {
     const e = {}
     if (!form.fullName.trim() || form.fullName.trim().length < 3)
       e.fullName = 'Full name must be at least 3 characters'
-
     if (!form.phone)
       e.phone = 'Phone number is required'
     else if (!isValidPhone(form.phone))
       e.phone = 'Enter a valid Rwandan phone number (e.g. 0781234567)'
-
     if (form.email && !isValidEmail(form.email))
       e.email = 'Enter a valid email address'
-
     if (!form.password)
       e.password = 'Password is required'
     else if (form.password.length < 8)
@@ -172,12 +170,10 @@ function SignUp({ onLogin, role = 'user' }) {
       e.password = 'Password must contain at least 1 number'
     else if (!/[^a-zA-Z0-9]/.test(form.password))
       e.password = 'Password must contain at least 1 special character'
-
     if (!form.confirmPassword)
       e.confirmPassword = 'Please confirm your password'
     else if (form.password !== form.confirmPassword)
       e.confirmPassword = 'Passwords do not match'
-
     return e
   }
 
@@ -193,7 +189,6 @@ function SignUp({ onLogin, role = 'user' }) {
       email: form.email,
       role: role
     }))
-    // Redirect based on role
     navigate(role === 'vendor' ? '/vendor/dashboard' : '/user/dashboard')
   }
 
@@ -274,8 +269,6 @@ function SignUp({ onLogin, role = 'user' }) {
     </div>
   )
 }
-
-
 
 function ForgotPassword({ onNext }) {
   return (
@@ -384,11 +377,11 @@ function CreatePassword() {
     </div>
   )
 }
+
 export default function Auth() {
   const navigate = useNavigate()
-  const location = useLocation()
   const params = new URLSearchParams(window.location.search)
-  const urlRole = params.get('role') // 'user' or 'vendor'
+  const urlRole = params.get('role')
   const initialStep = params.get('step') || (urlRole ? 'signup' : 'account')
   const [step, setStep] = useState(initialStep)
   const [role, setRole] = useState(urlRole || 'user')
