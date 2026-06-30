@@ -47,7 +47,7 @@ function Navbar() {
         ) : (
           <>
             <span className="btn-signin" onClick={() => navigate('/auth?step=login')}>Sign in</span>
-            <span className="btn-signup" onClick={() => navigate('/auth?step=signup')}>Sign up</span>
+            <span className="btn-signup" onClick={() => navigate('/auth?step=signup&role=user')}>Sign up</span>
           </>
         )}
       </div>
