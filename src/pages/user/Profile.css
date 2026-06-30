@@ -1,0 +1,224 @@
+.profile-page {
+  background: #f5f6f8;
+  min-height: 100vh;
+}
+
+.profile-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 20px 50px;
+}
+
+.profile-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 24px;
+}
+
+.profile-back {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2D6A4F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-gear { font-size: 18px; cursor: pointer; }
+
+.profile-mini-avatar {
+  width: 32px;
+  height: 32px;
+  background: #2D6A4F;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Hero */
+.profile-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
+.profile-avatar-wrap {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  background: #2D6A4F;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #fff;
+}
+
+.avatar-edit-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  background: #2D6A4F;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-hero h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+  margin: 4px 0 0;
+}
+
+.profile-location {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 12px;
+}
+
+.edit-profile-btn {
+  background: #2D6A4F;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 36px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-profile-btn:hover { background: #245a42; }
+
+/* Cards */
+.profile-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid #eee;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+  background: #e6f4ec;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.card-title-row h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+.info-row {
+  margin-bottom: 16px;
+}
+
+.info-row:last-child { margin-bottom: 0; }
+
+.info-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #aaa;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px;
+}
+
+.info-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  margin: 0;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pref-pill {
+  background: #f0f0f0;
+  color: #444;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.settings-item {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+}
+
+.settings-item:last-child { margin-bottom: 0; }
+
+.settings-item:hover {
+  border-color: #2D6A4F;
+  background: #f9fdf9;
+}
+
+.logout-link {
+  display: block;
+  margin: 24px auto 0;
+  background: none;
+  border: none;
+  color: #e53e3e;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.logout-link:hover { text-decoration: underline; }
