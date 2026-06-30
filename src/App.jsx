@@ -6,11 +6,12 @@ import Discover from './pages/user/Discover'
 import VendorDetail from './pages/user/VendorDetail'
 import Categories from './pages/user/Categories'
 import HowItWorks from './pages/user/HowItWorks'
+import AIAssistant from './pages/user/AIAssistant'
 import UserDashboard from './pages/user/UserDashboard'
+import MyBookings from './pages/user/MyBookings'
 import Booking from './pages/user/Booking'
 import BookingConfirmed from './pages/user/BookingConfirmed'
 import ProtectedRoute from './components/ProtectedRoute'
-import MyBookings from './pages/user/MyBookings'
 
 function App() {
   return (
@@ -23,20 +24,20 @@ function App() {
       <Route path="/vendor/:id" element={<VendorDetail />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/how-it-works" element={<HowItWorks />} />
+      <Route path="/ai-assistant" element={<AIAssistant />} />
 
       {/* ===== USER - must be logged in ===== */}
       <Route path="/user/dashboard" element={
         <ProtectedRoute><UserDashboard /></ProtectedRoute>
+      } />
+      <Route path="/user/bookings" element={
+        <ProtectedRoute><MyBookings /></ProtectedRoute>
       } />
       <Route path="/user/booking/:id" element={
         <ProtectedRoute><Booking /></ProtectedRoute>
       } />
       <Route path="/user/booking-confirmed" element={
         <ProtectedRoute><BookingConfirmed /></ProtectedRoute>
-      } />
-
-        <Route path="/user/bookings" element={
-        <ProtectedRoute><MyBookings /></ProtectedRoute>
       } />
 
       {/* ===== VENDOR - coming soon ===== */}
