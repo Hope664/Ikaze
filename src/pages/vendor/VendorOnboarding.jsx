@@ -22,8 +22,8 @@ function StepBusinessInfo({ onNext }) {
     fullName: '', email: '', phone: '',
     password: '', confirmPassword: ''
   })
-  const [errors, setErrors] = useState({})
-  const [fileDropped, setFileDropped] = useState(false)
+  const [fileName, setFileName] = useState(null)
+const fileRef = useRef(null)
 
   const update = (field, val) => setForm({ ...form, [field]: val })
 
@@ -140,16 +140,30 @@ function StepBusinessInfo({ onNext }) {
       <div className="onb-card">
         <label className="upload-label">BUSINESS LICENSE (RDB CERTIFICATE)</label>
         <p className="upload-hint">Please upload a clear PDF or high-resolution image of your official registration document.</p>
-        <div className={`upload-dropzone ${fileDropped ? 'dropped' : ''}`}
-          onClick={() => setFileDropped(!fileDropped)}>
-          <span className="upload-icon">📄</span>
-          <p><strong>Drag & drop your file here</strong></p>
-          <p className="upload-sub">or <span className="browse-link">browse files</span> from your computer</p>
-          <div className="upload-tags">
-            <span>PDF (Max 10MB)</span>
-            <span>JPG/PNG</span>
-          </div>
-        </div>
+        <div className={`upload-dropzone ${fileName ? 'dropped' : ''}`}
+  onClick={() => fileRef.current.click()}
+  onDragOver={e => e.preventDefault()}
+  onDrop={e => {
+    e.preventDefault()
+    const file = e.dataTransfer.files[0]
+    if (file) setFileName(file.name)
+  }}
+>
+  <input
+    ref={fileRef}
+    type="file"
+    accept=".pdf,.jpg,.jpeg,.png"
+    style={{ display: 'none' }}
+    onChange={e => e.target.files[0] && setFileName(e.target.files[0].name)}
+  />
+  <span className="upload-icon">📄</span>
+  <p><strong>{fileName || 'Drag & drop your file here'}</strong></p>
+  <p className="upload-sub">or <span className="browse-link">browse files</span> from your computer</p>
+  <div className="upload-tags">
+    <span>PDF (Max 10MB)</span>
+    <span>JPG/PNG</span>
+  </div>
+</div>
       </div>
 
       <div className="step-footer">
@@ -241,13 +255,16 @@ function StepVerificationDocs({ onNext, onBack }) {
 
 // ── Step 3 ──────────────────────────────────────────────
 function StepBusinessMedia({ onNext, onBack }) {
+  const [heroFile, setHeroFile] = useState(null)
+  const [logoFile, setLogoFile] = useState(null)
   const [gallery, setGallery] = useState(Array(6).fill(null))
-  const [heroUploaded, setHeroUploaded] = useState(false)
-  const [logoUploaded, setLogoUploaded] = useState(false)
+  const heroRef = useRef(null)
+  const logoRef = useRef(null)
+  const galleryRefs = useRef(Array(6).fill(null).map(() => React.createRef()))
 
-  const toggleGallery = (i) => {
+  const handleGalleryUpload = (i, file) => {
     const updated = [...gallery]
-    updated[i] = updated[i] ? null : 'uploaded'
+    updated[i] = file.name
     setGallery(updated)
   }
 
@@ -267,9 +284,20 @@ function StepBusinessMedia({ onNext, onBack }) {
           </div>
           <span className="required-badge">REQUIRED</span>
         </div>
-        <div className={`hero-dropzone ${heroUploaded ? 'dropped' : ''}`} onClick={() => setHeroUploaded(!heroUploaded)}>
+        <input ref={heroRef} type="file" accept="image/*" style={{ display: 'none' }}
+          onChange={e => e.target.files[0] && setHeroFile(e.target.files[0].name)} />
+        <div
+          className={`hero-dropzone ${heroFile ? 'dropped' : ''}`}
+          onClick={() => heroRef.current.click()}
+          onDragOver={e => e.preventDefault()}
+          onDrop={e => {
+            e.preventDefault()
+            const file = e.dataTransfer.files[0]
+            if (file) setHeroFile(file.name)
+          }}
+        >
           <span className="upload-cam-icon">📷</span>
-          <p><strong>Click to upload or drag and drop</strong></p>
+          <p><strong>{heroFile || 'Click to upload or drag and drop'}</strong></p>
           <p className="upload-sub">High-resolution JPEG or PNG (Min 1200×600px)</p>
         </div>
       </div>
@@ -279,9 +307,20 @@ function StepBusinessMedia({ onNext, onBack }) {
         <div className="media-card">
           <h3>Business Logo</h3>
           <p>Square aspect ratio preferred.</p>
-          <div className={`logo-dropzone ${logoUploaded ? 'dropped' : ''}`} onClick={() => setLogoUploaded(!logoUploaded)}>
+          <input ref={logoRef} type="file" accept="image/*" style={{ display: 'none' }}
+            onChange={e => e.target.files[0] && setLogoFile(e.target.files[0].name)} />
+          <div
+            className={`logo-dropzone ${logoFile ? 'dropped' : ''}`}
+            onClick={() => logoRef.current.click()}
+            onDragOver={e => e.preventDefault()}
+            onDrop={e => {
+              e.preventDefault()
+              const file = e.dataTransfer.files[0]
+              if (file) setLogoFile(file.name)
+            }}
+          >
             <span>⬆</span>
-            <p>Upload Logo</p>
+            <p>{logoFile || 'Upload Logo'}</p>
           </div>
         </div>
 
@@ -295,20 +334,31 @@ function StepBusinessMedia({ onNext, onBack }) {
           </div>
           <div className="gallery-grid">
             {gallery.map((item, i) => (
-              <div key={i} className={`gallery-slot ${item ? 'filled' : ''}`} onClick={() => toggleGallery(i)}>
-                {item ? <span className="gallery-filled-icon">🖼️</span> : <span>+</span>}
+              <div key={i}>
+                <input
+                  ref={galleryRefs.current[i]}
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={e => e.target.files[0] && handleGalleryUpload(i, e.target.files[0])}
+                />
+                <div
+                  className={`gallery-slot ${item ? 'filled' : ''}`}
+                  onClick={() => galleryRefs.current[i].current.click()}
+                >
+                  {item ? <span className="gallery-filled-icon">🖼️</span> : <span>+</span>}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Verification Shield */}
       <div className="shield-notice">
         <span className="shield-icon">🛡️</span>
         <div>
           <p className="shield-title">Verification Shield</p>
-          <p>Photos of your premises or equipment help us verify your business faster. These images are reviewed by our team to ensure the highest quality of service on the IKAZE gateway.</p>
+          <p>Photos of your premises or equipment help us verify your business faster.</p>
         </div>
       </div>
 
