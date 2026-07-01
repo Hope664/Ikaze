@@ -373,52 +373,145 @@ function StepBusinessMedia({ onNext, onBack }) {
 // ── Step 4 ──────────────────────────────────────────────
 function StepReviewSubmit({ onBack, formData }) {
   const navigate = useNavigate()
+  const [agreed, setAgreed] = useState(false)
 
   const handleSubmit = () => {
+    if (!agreed) { alert('Please agree to the terms first'); return }
     localStorage.setItem('ikaze_user', JSON.stringify({
       ...JSON.parse(localStorage.getItem('ikaze_user') || '{}'),
       onboarded: true,
+      role: 'vendor'
     }))
     navigate('/vendor/dashboard')
   }
 
   return (
     <div className="step-content">
-      <h1>Review & Submit</h1>
-      <p className="step-desc">Please review your information before submitting. Our team will manually verify your application within 24 hours.</p>
+      <h1>Final Review</h1>
+      <p className="step-desc">Please confirm all details are accurate before submitting your vendor application for verification.</p>
 
-      <div className="review-card">
-        <h3>Business Information</h3>
-        <div className="review-row"><span>Business Name</span><strong>{formData?.businessName || '—'}</strong></div>
-        <div className="review-row"><span>Category</span><strong>{formData?.category || '—'}</strong></div>
-        <div className="review-row"><span>Address</span><strong>{formData?.address || '—'}</strong></div>
-        <div className="review-row"><span>Contact Name</span><strong>{formData?.fullName || '—'}</strong></div>
-        <div className="review-row"><span>Email</span><strong>{formData?.email || '—'}</strong></div>
-        <div className="review-row"><span>Phone</span><strong>{formData?.phone || '—'}</strong></div>
+      {/* Business Details */}
+      <div className="review-section">
+        <div className="review-section-header">
+          <div className="review-section-title">
+            <span>🏢</span>
+            <h3>Business Details</h3>
+          </div>
+          <button className="edit-btn" onClick={onBack}>✏️ Edit</button>
+        </div>
+        <div className="review-section-body">
+          <div className="review-field-grid">
+            <div>
+              <p className="rv-label">LEGAL BUSINESS NAME</p>
+              <p className="rv-value">{formData?.businessName || 'Ikaze Cultural Tours Ltd.'}</p>
+            </div>
+            <div>
+              <p className="rv-label">BUSINESS CATEGORY</p>
+              <span className="rv-category-pill">{formData?.category || 'Cultural Experiences'}</span>
+            </div>
+          </div>
+          <div>
+            <p className="rv-label">REGISTERED ADDRESS</p>
+            <p className="rv-value">{formData?.address || 'KN 3 Rd, Kigali Heights Building, Floor 4, Kigali, Rwanda'}</p>
+          </div>
+        </div>
       </div>
 
-      <div className="review-card">
-        <h3>Documents</h3>
-        <div className="review-row"><span>RDB Certificate</span><strong className="status-pending">Uploaded</strong></div>
-        <div className="review-row"><span>VAT Certificate</span><strong className="status-optional">Optional</strong></div>
-        <div className="review-row"><span>Owner ID</span><strong className="status-pending">Uploaded</strong></div>
+      {/* Representative Details */}
+      <div className="review-section">
+        <div className="review-section-header">
+          <div className="review-section-title">
+            <span>👤</span>
+            <h3>Representative Details</h3>
+          </div>
+          <button className="edit-btn" onClick={onBack}>✏️ Edit</button>
+        </div>
+        <div className="review-section-body">
+          <div className="review-field-grid">
+            <div>
+              <p className="rv-label">FULL NAME</p>
+              <p className="rv-value">{formData?.fullName || 'Umurerwa Jane'}</p>
+            </div>
+            <div>
+              <p className="rv-label">EMAIL ADDRESS</p>
+              <p className="rv-value">{formData?.email || 'jane.umurerwa@ikazetours.rw'}</p>
+            </div>
+          </div>
+          <div>
+            <p className="rv-label">PHONE NUMBER</p>
+            <p className="rv-value">{formData?.phone || '+250 788 000 000'}</p>
+          </div>
+        </div>
       </div>
 
-      <div className="review-card">
-        <h3>Media</h3>
-        <div className="review-row"><span>Hero Image</span><strong className="status-pending">Uploaded</strong></div>
-        <div className="review-row"><span>Business Logo</span><strong className="status-pending">Uploaded</strong></div>
-        <div className="review-row"><span>Gallery</span><strong>2 / 6 photos</strong></div>
+      {/* Documents & Media */}
+      <div className="review-section">
+        <div className="review-section-header">
+          <div className="review-section-title">
+            <span>📁</span>
+            <h3>Uploaded Documents & Media</h3>
+          </div>
+          <button className="edit-btn" onClick={onBack}>✏️ Edit</button>
+        </div>
+        <div className="review-section-body">
+          <div className="docs-preview-grid">
+            <div className="doc-preview-item">
+              <span>📄</span>
+              <div>
+                <p className="doc-preview-name">RDB_Business_Registration.pdf</p>
+                <p className="doc-preview-meta">2.4 MB • Verified Format</p>
+              </div>
+              <span className="doc-check">✅</span>
+            </div>
+            <div className="doc-preview-item">
+              <span>🪪</span>
+              <div>
+                <p className="doc-preview-name">National_ID_Umurerwa.jpg</p>
+                <p className="doc-preview-meta">1.1 MB • High Quality</p>
+              </div>
+              <span className="doc-check">✅</span>
+            </div>
+          </div>
+
+          <p className="rv-label" style={{ marginTop: 16 }}>PROFILE MEDIA SHOWCASE</p>
+          <div className="media-preview-grid">
+            {[
+              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80',
+              'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80',
+              'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=200&q=80',
+              'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=200&q=80',
+            ].map((img, i) => (
+              <img key={i} src={img} alt={`media-${i}`} className="media-preview-img" />
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="submit-notice">
-        <span>🛡️</span>
-        <p>By submitting, you agree to Ikaze's vendor terms. Your listing will be <strong>hidden from public view</strong> until our team completes the verification process.</p>
+      {/* Verification Promise */}
+      <div className="verification-promise">
+        <div className="vp-icon">✅</div>
+        <div>
+          <h4>The Ikaze Verification Promise</h4>
+          <p>Our dedicated team of reviewers will personally evaluate your application within <strong>48 hours</strong>. We ensure that every vendor on IKAZE meets our high standards of quality and authenticity, providing travelers with the best Rwandan experiences.</p>
+        </div>
       </div>
 
-      <div className="step-footer">
-        <button className="back-btn" onClick={onBack}>← Back</button>
-        <button className="submit-btn" onClick={handleSubmit}>Submit Application →</button>
+      {/* Terms checkbox */}
+      <div className="terms-section">
+        <label className="terms-checkbox">
+          <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} />
+          <span>I hereby certify that the information provided is accurate to the best of my knowledge and I agree to the <a href="#">IKAZE Vendor Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</span>
+        </label>
+        <div className="final-footer">
+          <p className="final-note">You can still edit your profile after submission, but major changes may require re-verification.</p>
+          <div className="final-btns">
+            <button className="back-btn" onClick={onBack}>Back to Profile Media</button>
+            <button className="submit-btn" onClick={handleSubmit} disabled={!agreed}
+              style={{ opacity: agreed ? 1 : 0.5 }}>
+              Submit for Verification ▷
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
