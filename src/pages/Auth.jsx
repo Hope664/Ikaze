@@ -189,7 +189,7 @@ function SignUp({ onLogin, role = 'user' }) {
       email: form.email,
       role: role
     }))
-    navigate(role === 'vendor' ? '/vendor/dashboard' : '/user/dashboard')
+    navigate(role === 'vendor' ? '/vendor/onboarding' : '/user/dashboard')
   }
 
   return (
