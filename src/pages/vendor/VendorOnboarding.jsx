@@ -174,14 +174,9 @@ function StepBusinessInfo({ onNext }) {
     </div>
   )
 }
-
-// ── Step 2 ──────────────────────────────────────────────
 function StepVerificationDocs({ onNext, onBack }) {
   const [docs, setDocs] = useState({ rdb: null, vat: null, id: null })
-
-  const uploadDoc = (key) => {
-    setDocs({ ...docs, [key]: 'uploaded' })
-  }
+  const refs = { rdb: useRef(null), vat: useRef(null), id: useRef(null) }
 
   const DOC_LIST = [
     { key: 'rdb', icon: '📄', title: 'RDB Registration Certificate', desc: 'Official company registration document from Rwanda Development Board.', note: 'PDF, PNG, JPG (Max 5MB)' },
@@ -198,6 +193,15 @@ function StepVerificationDocs({ onNext, onBack }) {
       <div className="docs-list">
         {DOC_LIST.map(doc => (
           <div key={doc.key} className="doc-card">
+            <input
+              ref={refs[doc.key]}
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              style={{ display: 'none' }}
+              onChange={e => {
+                if (e.target.files[0]) setDocs({ ...docs, [doc.key]: e.target.files[0].name })
+              }}
+            />
             <span className="doc-icon">{doc.icon}</span>
             <div className="doc-info">
               <div className="doc-title-row">
@@ -206,11 +210,11 @@ function StepVerificationDocs({ onNext, onBack }) {
               </div>
               <p>{doc.desc}</p>
               <span className={docs[doc.key] ? 'doc-status uploaded' : 'doc-status'}>
-                {docs[doc.key] ? '✅ Uploaded' : '⚠️ Not Uploaded'}
+                {docs[doc.key] ? `✅ ${docs[doc.key]}` : '⚠️ Not Uploaded'}
               </span>
             </div>
             <div className="doc-upload-col">
-              <button className="upload-doc-btn" onClick={() => uploadDoc(doc.key)}>⬆ Upload</button>
+              <button className="upload-doc-btn" onClick={() => refs[doc.key].current.click()}>⬆ Upload</button>
               <span className="doc-note">{doc.note}</span>
             </div>
           </div>
@@ -232,6 +236,8 @@ function StepVerificationDocs({ onNext, onBack }) {
     </div>
   )
 }
+// ── Step 2 ──────────────────────────────────────────────
+
 
 // ── Step 3 ──────────────────────────────────────────────
 function StepBusinessMedia({ onNext, onBack }) {
