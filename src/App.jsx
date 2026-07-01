@@ -14,6 +14,7 @@ import BookingConfirmed from './pages/user/BookingConfirmed'
 import Profile from './pages/user/Profile'
 import EditProfile from './pages/user/EditProfile'
 import ProtectedRoute from './components/ProtectedRoute'
+import VendorOnboarding from './pages/vendor/VendorOnboarding'
 
 function App() {
   return (
@@ -48,9 +49,10 @@ function App() {
         <ProtectedRoute><EditProfile /></ProtectedRoute>
       } />
 
-      {/* ===== VENDOR - coming soon ===== */}
       {/* <Route path="/vendor/dashboard" element={<ProtectedRoute><VendorDashboard /></ProtectedRoute>} /> */}
 
+{/* ===== VENDOR ===== */}
+<Route path="/vendor/onboarding" element={<VendorOnboarding />} />
       {/* ===== ADMIN - coming soon ===== */}
       {/* <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> */}
     </Routes>
