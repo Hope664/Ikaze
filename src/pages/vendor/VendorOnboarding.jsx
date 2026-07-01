@@ -547,15 +547,10 @@ export default function VendorOnboarding() {
           </div>
           <ul className="onb-steps-list">
             {STEPS.map(step => (
-              <li
-                key={step.id}
-                className={`onb-step-item ${currentStep === step.id ? 'active' : ''} ${currentStep > step.id ? 'done' : ''}`}
-              >
-                <span className="step-dot">
-                  {currentStep > step.id ? '✓' : step.id}
-                </span>
-                {step.label}
-              </li>
+             <li className="onb-step-item" onClick={() => navigate('/vendor/how-it-works')}>
+  <span className="step-dot">5</span>How it works
+</li>
+              
             ))}
           </ul>
           <div className="sidebar-security">

@@ -15,6 +15,9 @@ import Profile from './pages/user/Profile'
 import EditProfile from './pages/user/EditProfile'
 import ProtectedRoute from './components/ProtectedRoute'
 import VendorOnboarding from './pages/vendor/VendorOnboarding'
+import VendorOnboarding from './pages/vendor/VendorOnboarding'
+import VendorHowItWorks from './pages/vendor/VendorHowItWorks'
+import VendorLogin from './pages/vendor/VendorLogin'
 
 function App() {
   return (
@@ -53,6 +56,9 @@ function App() {
 
 {/* ===== VENDOR ===== */}
 <Route path="/vendor/onboarding" element={<VendorOnboarding />} />
+<Route path="/vendor/onboarding" element={<VendorOnboarding />} />
+<Route path="/vendor/how-it-works" element={<VendorHowItWorks />} />
+<Route path="/vendor/login" element={<VendorLogin />} />
       {/* ===== ADMIN - coming soon ===== */}
       {/* <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> */}
     </Routes>
